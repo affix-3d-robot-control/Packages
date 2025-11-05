@@ -1,7 +1,7 @@
 import struct
 import time
 
-from packages.package import Package
+from .package import Package
 
 
 class ProgressPackage(Package):

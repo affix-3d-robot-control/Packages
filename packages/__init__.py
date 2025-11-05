@@ -1,6 +1,6 @@
-from packages.package import Package
-from packages.progress_package import ProgressPackage
-from packages.temperature_package import TemperaturePackage
+from .package import Package
+from .progress_package import ProgressPackage
+from .temperature_package import TemperaturePackage
 
 
 def get_package(data: bytes) -> Package:
