@@ -1,0 +1,44 @@
+[flake8]
+# Maximum line length
+max-line-length = 88
+
+# Exclude directories
+exclude =
+    .git,
+    __pycache__,
+    .venv
+
+# Ignore specific warnings/errors
+ignore =
+    D100,
+    D104,
+    D401,
+    B008
+
+# Enable core Flake8 checks + recommended plugin codes
+select = C, E, F, W, B, B950, D, I, Q, VNE
+
+# Show statistics and count summary
+statistics = True
+count = True
+
+# Show source lines in output
+show-source = True
+
+# Output formatting
+format = %(path)s:%(row)d:%(col)d: %(code)s %(text)s
+
+# ---- Plugin Configuration ----
+
+# flake8-docstrings (uses pydocstyle under the hood)
+docstring-convention = google
+
+# flake8-import-order: enforce import order style
+import-order-style = google
+application-import-names = app, src
+
+# flake8-quotes: enforce consistent quote style
+inline-quotes = double
+multiline-quotes = double
+docstring-quotes = double
+avoid-escape = True

@@ -1,0 +1,16 @@
+from packages.package import Package
+from packages.progress_package import ProgressPackage
+from packages.temperature_package import TemperaturePackage
+
+
+def get_package(data: bytes) -> Package:
+    """Finds the correct package from the bytes object and returns it."""
+    identifier = data[4]
+
+    match identifier:
+        case 0x01:
+            return TemperaturePackage().to_package(data)
+        case 0x02:
+            return ProgressPackage().to_package(data)
+
+    raise ValueError(f"No package found for data with identifier {identifier}")
