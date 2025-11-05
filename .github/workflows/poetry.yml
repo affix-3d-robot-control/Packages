@@ -1,0 +1,35 @@
+name: poetry
+on:
+  - pull_request
+  - push
+
+jobs:
+  poetry:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-22.04, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup python 3.13
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.13
+
+      - name: Install poetry
+        uses: abatilo/actions-poetry@v3
+        with:
+          poetry-version: 2.2.1
+
+      - name: Install project
+        run: poetry install
+
+      - name: Run pytest
+        if: always()
+        run: poetry run pytest
+
+      - name: Run flake8
+        if: always()
+        run: poetry run flake8
