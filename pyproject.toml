@@ -16,6 +16,7 @@ dependencies = [
     "flake8-import-order (>=0.19.2,<0.20.0)",
     "flake8-quotes (>=3.4.0,<4.0.0)",
     "flake8-variables-names (>=0.0.6,<0.0.7)",
+    "pytest (>=8.4.2,<9.0.0)",
 ]
 
 

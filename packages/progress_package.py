@@ -9,7 +9,7 @@ class ProgressPackage(Package):
 
     def __init__(self, timestamp: int = time.time(), progress: float = 0.0):
         """Creates a progress package."""
-        super().__init__(0x01, "!IBId")
+        super().__init__(0x01, "!IBLd")
 
         self.timestamp = timestamp
         self.progress = progress

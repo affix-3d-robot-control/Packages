@@ -9,7 +9,7 @@ class TemperaturePackage(Package):
 
     def __init__(self, timestamp: int = time.time(), temperature: float = 0.0):
         """Creates a temperature package."""
-        super().__init__(0x01, "!IBId")
+        super().__init__(0x01, "!IBLd")
 
         self.timestamp = timestamp
         self.temperature = temperature
