@@ -1,4 +1,4 @@
-from packages import ProgressPackage
+from packages.packages import ProgressPackage
 
 
 def test_progress_package_initializes():

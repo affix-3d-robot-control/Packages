@@ -1,4 +1,4 @@
-from packages import Package
+from packages.packages import Package
 
 
 def test_package_initializes():

@@ -1,4 +1,4 @@
-from packages import TemperaturePackage
+from packages.packages import TemperaturePackage
 
 
 def test_temperature_package_initializes():
