@@ -11,7 +11,6 @@ def test_progress_package_initializes():
 def test_progress_package_converts_to_bytes():
     """Tests if the progress package converts to bytes."""
     package = ProgressPackage(1762330645, 43.8)
-    print(package.to_bytes())
     assert package.to_bytes() == bytes([
         0x00, 0x00, 0x00, 0x11,  # Package Size
         0x01,  # Identifier

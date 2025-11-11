@@ -45,10 +45,7 @@ class STLPackage(Package):
 
         # Convert bytes to correct data
         timestamp = package[2]
-        stl_size = package[3]
-        print(data)
-        print(package)
 
-        stl = struct.unpack(f"{stl_size}p", data[struct.calcsize(self.format):])
+        stl = data[struct.calcsize(self.format):].decode("utf-8")
 
         return STLPackage(timestamp=timestamp, stl=stl)

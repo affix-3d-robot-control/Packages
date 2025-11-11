@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="DeveloperToolsToolWindowSettingsV1" lastSelectedContentNodeId="base64-encoder-decoder" pluginVersion="7.1.0">
-    <developerToolsConfigurations />
+  <component name="DeveloperToolsToolWindowSettingsV1" lastSelectedContentNodeId="escape-sequence-escaper-unescaper" pluginVersion="7.1.0">
+    <developerToolsConfigurations>
+      <developerToolConfiguration developerToolId="ascii-encoder-decoder" id="8dd20fac-2d09-4bf2-9b08-a6606f729877" name="Workbench">
+        <properties>
+          <property key="liveConversion" type="CONFIGURATION" value="kotlin.Boolean|false" />
+          <property key="targetText" type="INPUT" value="kotlin.String|0x65" />
+        </properties>
+      </developerToolConfiguration>
+    </developerToolsConfigurations>
+    <expandedGroupNodeIds />
   </component>
 </project>
