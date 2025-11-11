@@ -10,23 +10,25 @@ class ConfigPackage(Package):
     def __init__(
             self,
             timestamp: int = time.time(),
-            key: str = "",
+            section: str = "",
+            option: str = "",
             value: int | str | bool | float = ""
     ):
         """Creates a config package."""
-        super().__init__(0x04, "!IBLII")
+        super().__init__(0x04, "!IBLIII")
 
         self.timestamp = timestamp
-        self.key = key
+        self.section = section
+        self.option = option
         self.value = value
 
     def to_bytes(self) -> bytes:
         """Converts the current package to a bytes object."""
         package_format = (
-            self.format + f"{len(self.key)}s{len(self.value)}s" if type(self.value) is str else
-            self.format + f"{len(self.key)}sl" if type(self.value) is int else
-            self.format + f"{len(self.key)}sf" if type(self.value) is float else
-            self.format + f"{len(self.key)}s?"
+            self.format + f"{len(self.section)}s{len(self.option)}s{len(self.value)}s" if type(self.value) is str else
+            self.format + f"{len(self.section)}s{len(self.option)}sl" if type(self.value) is int else
+            self.format + f"{len(self.section)}s{len(self.option)}sf" if type(self.value) is float else
+            self.format + f"{len(self.section)}s{len(self.option)}s?"
         )
 
         return struct.pack(
@@ -34,9 +36,11 @@ class ConfigPackage(Package):
             struct.calcsize(package_format),
             self.identifier,
             int(self.timestamp),
-            len(self.key),
+            len(self.section),
+            len(self.option),
             len(self.value) if type(self.value) is str else 1 if type(self.value) is bool else 4,
-            self.key.encode("utf-8"),
+            self.section.encode("utf-8"),
+            self.option.encode("utf-8"),
             self.value.encode("utf-8") if type(self.value) is str else self.value
         )
 
@@ -59,12 +63,34 @@ class ConfigPackage(Package):
 
         # Convert bytes to correct data
         timestamp = package[2]
-        key_size = package[3]
-        value_size = package[4]
+        section_size = package[3]
+        option_size = package[4]
+        value_size = package[5]
 
-        print(data[header_size:header_size + key_size])
+        print(data[header_size:header_size + section_size])
 
-        key = struct.unpack(f"{key_size}s", data[header_size:header_size + key_size])
-        value = struct.unpack(f"{value_size}s", data[header_size + key_size:])
+        section = struct.unpack(
+            f"{section_size}s",
+            data[
+                header_size:header_size + section_size
+            ])
 
-        return ConfigPackage(timestamp=timestamp, key=key[0].decode("utf-8"), value=value[0].decode("utf-8"))
+        option = struct.unpack(
+            f"{option_size}s",
+            data[
+                header_size + section_size:
+                header_size + section_size + option_size
+            ])
+
+        value = struct.unpack(
+            f"{value_size}s",
+            data[
+                header_size + section_size + option_size:
+            ])
+
+        return ConfigPackage(
+            timestamp=timestamp,
+            section=section[0].decode("utf-8"),
+            option=option[0].decode("utf-8"),
+            value=value[0].decode("utf-8")
+        )
