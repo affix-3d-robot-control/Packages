@@ -5,10 +5,10 @@ from .stl_package import STLPackage
 from .temperature_package import TemperaturePackage
 
 PACKAGES = {
-    TemperaturePackage().identifier: type(TemperaturePackage),
-    ProgressPackage().identifier: type(ProgressPackage),
-    STLPackage().identifier: type(STLPackage),
-    ConfigPackage().identifier: type(ConfigPackage),
+    TemperaturePackage().identifier: TemperaturePackage,
+    ProgressPackage().identifier: ProgressPackage,
+    STLPackage().identifier: STLPackage,
+    ConfigPackage().identifier: ConfigPackage,
 }
 
 
@@ -24,4 +24,4 @@ def get_package(data: bytes) -> Package:
 
 def get_identifier(package_type: type[Package]) -> int:
     """Finds the correct package identifier and returns it."""
-    return list(PACKAGES.keys())[list(PACKAGES.values()).index(type(package_type))]
+    return package_type().identifier
