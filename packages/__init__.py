@@ -1,6 +1,7 @@
 from .config_package import ConfigPackage
 from .package import Package
 from .progress_package import ProgressPackage
+from .robot_data_package import RobotDataPackage
 from .stl_package import STLPackage
 from .temperature_package import TemperaturePackage
 
@@ -9,6 +10,7 @@ PACKAGES = {
     ProgressPackage().identifier: ProgressPackage,
     STLPackage().identifier: STLPackage,
     ConfigPackage().identifier: ConfigPackage,
+    RobotDataPackage().identifier: RobotDataPackage,
 }
 
 
