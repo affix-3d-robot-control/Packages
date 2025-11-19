@@ -1,4 +1,5 @@
 from .config_package import ConfigPackage
+from .confirmation_package import ConfirmationPackage
 from .package import Package
 from .progress_package import ProgressPackage
 from .request_robot_list_package import RequestRobotListPackage
@@ -13,6 +14,7 @@ PACKAGES = {
     ConfigPackage().identifier: ConfigPackage,
     RobotDataPackage().identifier: RobotDataPackage,
     RequestRobotListPackage().identifier: RequestRobotListPackage,
+    ConfirmationPackage().identifier: ConfirmationPackage,
 }
 
 
