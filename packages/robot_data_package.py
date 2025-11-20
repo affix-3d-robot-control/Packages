@@ -44,12 +44,8 @@ class RobotDataPackage(Package):
     def to_robot(self):
         """Converts a robot to RobotDataPackage."""
         robot = Robot()
-        robot.name = self.name,
-        robot.manufacturer = self.manufacturer,
-        robot.acceleration.min_acceleration = self.min_acceleration,
-        robot.acceleration.max_acceleration = self.max_acceleration,
-        robot.speed.min_speed = self.min_speed,
-        robot.speed.max_speed = self.max_speed
+        robot.name = self.name
+        robot.manufacturer = self.manufacturer
         
         return robot
 
