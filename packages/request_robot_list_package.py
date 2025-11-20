@@ -7,7 +7,7 @@ from .package import Package
 class RequestRobotListPackage(Package):
     """A package to request all loaded robots.."""
 
-    def __init__(self, timestamp: int = time.time(), progress: float = 0.0):
+    def __init__(self, timestamp: int = time.time()):
         """Creates a request package."""
         super().__init__(0x06, "!IBL")
 
