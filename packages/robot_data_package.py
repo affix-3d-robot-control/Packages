@@ -35,11 +35,23 @@ class RobotDataPackage(Package):
             timestamp=self.timestamp,
             name=robot.name,
             manufacturer=robot.manufacturer,
-            min_acceleration=self.min_acceleration,
-            max_acceleration=self.max_acceleration,
-            min_speed=self.min_speed,
-            max_speed=self.max_speed,
+            min_acceleration=robot.acceleration.min_acceleration,
+            max_acceleration=robot.acceleration.max_acceleration,
+            min_speed=robot.speed.min_speed,
+            max_speed=robot.speed.max_speed,
         )
+
+    def to_robot(self):
+        """Converts a robot to RobotDataPackage."""
+        robot = Robot()
+        robot.name = self.name,
+        robot.manufacturer = self.manufacturer,
+        robot.acceleration.min_acceleration = self.min_acceleration,
+        robot.acceleration.max_acceleration = self.max_acceleration,
+        robot.speed.min_speed = self.min_speed,
+        robot.speed.max_speed = self.max_speed
+        
+        return robot
 
     def to_bytes(self) -> bytes:
         """Converts the current package to a bytes object."""
