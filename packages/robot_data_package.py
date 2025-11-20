@@ -1,6 +1,7 @@
 import struct
 import time
 
+from backend.robot import Robot
 from .package import Package
 
 
@@ -27,6 +28,18 @@ class RobotDataPackage(Package):
         self.max_acceleration = max_acceleration
         self.min_speed = min_speed
         self.max_speed = max_speed
+
+    def from_robot(self, robot: Robot):
+        """Converts a robot to RobotDataPackage."""
+        return RobotDataPackage(
+            timestamp=self.timestamp,
+            name=robot.name,
+            manufacturer=robot.manufacturer,
+            min_acceleration=self.min_acceleration,
+            max_acceleration=self.max_acceleration,
+            min_speed=self.min_speed,
+            max_speed=self.max_speed,
+        )
 
     def to_bytes(self) -> bytes:
         """Converts the current package to a bytes object."""
