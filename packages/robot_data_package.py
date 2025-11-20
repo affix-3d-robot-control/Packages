@@ -1,8 +1,8 @@
 import struct
 import time
 
-from backend.robot import Robot
 from .package import Package
+from .robot import Robot
 
 
 class RobotDataPackage(Package):
