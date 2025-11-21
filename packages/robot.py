@@ -7,11 +7,11 @@ class Robot:
     code_file: str = ""
     model: str = ""
     brand: str = ""
-    axis: int = 0,
-    reach: int = 0,
-    payload: int = 0,
-    weight: int = 0,
-    acceleration: float = 0.0,
+    axis: int = 0
+    reach: int = 0
+    payload: int = 0
+    weight: int = 0
+    accuracy: float = 0.0
 
     def move(
             self,
