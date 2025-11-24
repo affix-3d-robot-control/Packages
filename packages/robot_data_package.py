@@ -17,11 +17,11 @@ class RobotDataPackage(Package):
             reach: int = 0,
             payload: int = 0,
             weight: int = 0,
-            accuracy: float = 0
+            accuracy: float = 0.0
 
     ):
         """Creates a robot package."""
-        super().__init__(0x05, "!IBLIIIIIIf")
+        super().__init__(0x05, "!IBLLLLLLLf")
 
         self.timestamp = timestamp
         self.model = model
@@ -38,6 +38,11 @@ class RobotDataPackage(Package):
             timestamp=self.timestamp,
             model=robot.model,
             brand=robot.brand,
+            axis=robot.axis,
+            reach=robot.reach,
+            payload=robot.payload,
+            weight=robot.weight,
+            accuracy=robot.accuracy
         )
 
     def to_robot(self):
@@ -45,6 +50,11 @@ class RobotDataPackage(Package):
         robot = Robot()
         robot.model = self.model
         robot.brand = self.brand
+        robot.axis = self.axis
+        robot.reach = self.reach
+        robot.payload = self.payload
+        robot.weight = self.weight
+        robot.accuracy = self.accuracy
         
         return robot
 
