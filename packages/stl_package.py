@@ -7,8 +7,11 @@ from .package import Package
 class STLPackage(Package):
     """A data package for transferring stl information."""
 
-    def __init__(self, timestamp: int = time.time(), stl: str = ""):
-        """Creates a stl package."""
+    def __init__(self, timestamp: int = time.time(), stl: bytes = b""):
+        """Creates a stl package.
+        
+        :param stl: The binary content of the STL file.
+        """
         super().__init__(0x03, "!IBLI")
 
         self.timestamp = timestamp
@@ -16,8 +19,13 @@ class STLPackage(Package):
 
     def to_bytes(self) -> bytes:
         """Converts the current package to a bytes object."""
-        package_format = self.format + f"{len(self.stl)}s"
-        stl_bytes = self.stl.encode("utf-8")
+        # Ensure stl is bytes
+        if isinstance(self.stl, str):
+            stl_bytes = self.stl.encode("utf-8")
+        else:
+            stl_bytes = self.stl
+
+        package_format = self.format + f"{len(stl_bytes)}s"
 
         return struct.pack(
             package_format,
@@ -46,6 +54,7 @@ class STLPackage(Package):
         # Convert bytes to correct data
         timestamp = package[2]
 
-        stl = data[struct.calcsize(self.format):].decode("utf-8")
+        # Extract the remaining data as bytes (do not decode)
+        stl_data = data[struct.calcsize(self.format):]
 
-        return STLPackage(timestamp=timestamp, stl=stl)
+        return STLPackage(timestamp=timestamp, stl=stl_data)
