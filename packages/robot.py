@@ -13,7 +13,6 @@ class Robot:
     weight: int = 0,
     accuracy: float = 0.0,
 
-
     def move(
             self,
             location: Tuple[int, int, int],

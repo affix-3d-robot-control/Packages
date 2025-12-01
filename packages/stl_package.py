@@ -9,7 +9,7 @@ class STLPackage(Package):
 
     def __init__(self, timestamp: int = time.time(), stl: bytes = b""):
         """Creates a stl package.
-        
+
         :param stl: The binary content of the STL file.
         """
         super().__init__(0x03, "!IBLI")

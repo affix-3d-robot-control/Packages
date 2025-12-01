@@ -1,6 +1,8 @@
 import struct
 import time
+
 from .package import Package
+
 
 class ButtonPackage(Package):
     """A package for transferring button press information."""
@@ -8,8 +10,8 @@ class ButtonPackage(Package):
     def __init__(self, timestamp: int = time.time(), button_name: str = ""):
         """Creates the button package."""
         # Using 0x08 as the identifier
-        super().__init__(0x08, "!IBLI") 
-        
+        super().__init__(0x08, "!IBLI")
+
         self.timestamp = timestamp
         self.button_name = button_name
 
@@ -20,11 +22,11 @@ class ButtonPackage(Package):
 
         return struct.pack(
             package_format,
-            struct.calcsize(package_format), # Item 1: Size (I)
-            self.identifier,                 # Item 2: ID (B)
-            int(self.timestamp),             # Item 3: Timestamp (L)
-            len(name_bytes),                 # Item 4: Length (I) - This was missing in the format!
-            name_bytes                       # Item 5: String (s)
+            struct.calcsize(package_format),  # Item 1: Size (I)
+            self.identifier,                  # Item 2: ID (B)
+            int(self.timestamp),              # Item 3: Timestamp (L)
+            len(name_bytes),                  # Item 4: Length (I) - This was missing in the format!
+            name_bytes                        # Item 5: String (s)
         )
 
     def to_package(self, data: bytes):
@@ -40,7 +42,7 @@ class ButtonPackage(Package):
         package = struct.unpack(self.format, data[0:header_size])
 
         timestamp = package[2]
-        
+
         # Read the rest of the data as the string
         button_name = data[header_size:].decode("utf-8")
 

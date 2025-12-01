@@ -55,7 +55,7 @@ class RobotDataPackage(Package):
         robot.payload = self.payload
         robot.weight = self.weight
         robot.accuracy = self.accuracy
-        
+
         return robot
 
     def to_bytes(self) -> bytes:
