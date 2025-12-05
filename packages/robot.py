@@ -13,6 +13,10 @@ class Robot:
     weight: int = 0,
     accuracy: float = 0.0,
 
+    def connect(self):
+        """Connects to the robot."""
+        pass
+
     def move(
             self,
             location: Tuple[int, int, int],
