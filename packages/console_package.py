@@ -5,42 +5,42 @@ from .package import Package
 
 
 class ConsolePackage(Package):
-    """A data package for transferring stl information."""
+    """A data package for transferring console_msg information."""
 
-    def __init__(self, timestamp: int = time.time(), stl: str = ""):
-        """Creates a stl package.
+    def __init__(self, timestamp: int = time.time(), console_msg: str = ""):
+        """Creates a console_msg package.
 
-        :param stl: The binary content of the STL file.
+        :param console_msg: The binary content of the console_msg file.
         """
         super().__init__(0x09, "!IBLI")
 
         self.timestamp = timestamp
-        self.stl = stl
+        self.console_msg = console_msg
 
     def to_bytes(self) -> bytes:
         """Converts the current package to a bytes object."""
-        # Ensure stl is bytes
-        if isinstance(self.stl, str):
-            stl_bytes = self.stl.encode("utf-8")
+        # Ensure console_msg is bytes
+        if isinstance(self.console_msg, str):
+            console_msg_bytes = self.console_msg.encode("utf-8")
         else:
-            stl_bytes = self.stl
+            console_msg_bytes = self.console_msg
 
-        package_format = self.format + f"{len(stl_bytes)}s"
+        package_format = self.format + f"{len(console_msg_bytes)}s"
 
         return struct.pack(
             package_format,
             struct.calcsize(package_format),
             self.identifier,
             int(self.timestamp),
-            len(stl_bytes),
-            stl_bytes
+            len(console_msg_bytes),
+            console_msg_bytes
         )
 
     def to_package(self, data: bytes):
-        """Convert a bytes object into a STLPackage.
+        """Convert a bytes object into a console_msgPackage.
 
         :param data: The data package
-        :return: The bytes object as a STLPackage
+        :return: The bytes object as a console_msgPackage
         """
         identifier = data[4]
 
@@ -55,6 +55,6 @@ class ConsolePackage(Package):
         timestamp = package[2]
 
         # Extract the remaining data as bytes (do not decode)
-        stl_data = data[struct.calcsize(self.format):]
+        console_msg_data = data[struct.calcsize(self.format):]
 
-        return STLPackage(timestamp=timestamp, stl=stl_data)
+        return ConsolePackage(timestamp=timestamp, console_msg=console_msg_data)

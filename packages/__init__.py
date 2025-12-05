@@ -1,3 +1,4 @@
+from .console_package import ConsolePackage
 from .button_package import ButtonPackage
 from .config_package import ConfigPackage
 from .confirmation_package import ConfirmationPackage
@@ -17,6 +18,7 @@ PACKAGES = {
     RequestRobotListPackage().identifier: RequestRobotListPackage,
     ConfirmationPackage().identifier: ConfirmationPackage,
     ButtonPackage().identifier: ButtonPackage,
+    ConsolePackage().identifier: ConsolePackage
 }
 
 
