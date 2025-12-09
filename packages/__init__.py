@@ -1,11 +1,12 @@
-from .console_package import ConsolePackage
 from .button_package import ButtonPackage
 from .config_package import ConfigPackage
 from .confirmation_package import ConfirmationPackage
+from .console_package import ConsolePackage
 from .package import Package
 from .progress_package import ProgressPackage
 from .request_robot_list_package import RequestRobotListPackage
 from .robot_data_package import RobotDataPackage
+from .slicer_config_file_package import SlicerConfigFilePackage
 from .stl_package import STLPackage
 from .temperature_package import TemperaturePackage
 
@@ -18,7 +19,8 @@ PACKAGES = {
     RequestRobotListPackage().identifier: RequestRobotListPackage,
     ConfirmationPackage().identifier: ConfirmationPackage,
     ButtonPackage().identifier: ButtonPackage,
-    ConsolePackage().identifier: ConsolePackage
+    ConsolePackage().identifier: ConsolePackage,
+    SlicerConfigFilePackage().identifier: SlicerConfigFilePackage
 }
 
 
