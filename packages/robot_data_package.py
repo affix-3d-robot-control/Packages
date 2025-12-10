@@ -13,6 +13,7 @@ class RobotDataPackage(Package):
             timestamp: int = time.time(),
             model: str = "",
             brand: str = "",
+            material: str = "",
             axis: int = 0,
             reach: int = 0,
             payload: int = 0,
@@ -21,11 +22,12 @@ class RobotDataPackage(Package):
 
     ):
         """Creates a robot package."""
-        super().__init__(0x05, "!IBLLLLLLLf")
+        super().__init__(0x05, "!IBLLLLLLLLLf")
 
         self.timestamp = timestamp
         self.model = model
         self.brand = brand
+        self.material = material
         self.axis = axis
         self.reach = reach
         self.payload = payload
@@ -38,6 +40,7 @@ class RobotDataPackage(Package):
             timestamp=self.timestamp,
             model=robot.model,
             brand=robot.brand,
+            material=robot.material,
             axis=robot.axis,
             reach=robot.reach,
             payload=robot.payload,
@@ -50,6 +53,7 @@ class RobotDataPackage(Package):
         robot = Robot()
         robot.model = self.model
         robot.brand = self.brand
+        robot.material = self.material
         robot.axis = self.axis
         robot.reach = self.reach
         robot.payload = self.payload
@@ -69,13 +73,15 @@ class RobotDataPackage(Package):
             int(self.timestamp),
             len(self.model),
             len(self.brand),
+            len(self.material),
             self.axis,
             self.reach,
             self.payload,
             self.weight,
             self.accuracy,
             self.model.encode("utf-8"),
-            self.brand.encode("utf-8")
+            self.brand.encode("utf-8"),
+            self.material.encode("utf-8")
         )
 
     def to_package(self, data: bytes):
@@ -99,6 +105,7 @@ class RobotDataPackage(Package):
         timestamp = package[2]
         model_size = package[3]
         brand_size = package[4]
+        material_size = package[5]
 
         name = struct.unpack(
             f"{model_size}s",
@@ -112,14 +119,22 @@ class RobotDataPackage(Package):
                 header_size + model_size:
                 header_size + model_size + brand_size
             ])
+        
+        fillament = struct.unpack(
+            f"{material_size}s",
+            data[
+                header_size + model_size + brand_size:
+                header_size + model_size + brand_size + material_size
+            ])
 
         return RobotDataPackage(
             timestamp=timestamp,
             model=name[0].decode("utf-8"),
             brand=manufacturer[0].decode("utf-8"),
-            axis=package[5],
-            reach=package[6],
-            payload=package[7],
-            weight=package[8],
-            accuracy=round(package[9], 2)
+            material=fillament[0].decode("utf-8"),
+            axis=package[6],
+            reach=package[7],
+            payload=package[8],
+            weight=package[9],
+            accuracy=round(package[10], 2)
         )

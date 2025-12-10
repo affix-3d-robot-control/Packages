@@ -7,6 +7,7 @@ class Robot:
     code_file: str = ""
     model: str = ""
     brand: str = ""
+    material: str = ""
     axis: int = 0,
     reach: int = 0,
     payload: int = 0,
