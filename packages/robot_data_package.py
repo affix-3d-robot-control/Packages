@@ -121,5 +121,5 @@ class RobotDataPackage(Package):
             reach=package[6],
             payload=package[7],
             weight=package[8],
-            accuracy=package[9]
+            accuracy=round(package[9], 2)
         )
