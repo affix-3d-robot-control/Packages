@@ -22,7 +22,7 @@ class RobotDataPackage(Package):
 
     ):
         """Creates a robot package."""
-        super().__init__(0x05, "!IBLLLLLLLLLf")
+        super().__init__(0x05, "!IBLLLLLLLLf")
 
         self.timestamp = timestamp
         self.model = model
@@ -64,7 +64,7 @@ class RobotDataPackage(Package):
 
     def to_bytes(self) -> bytes:
         """Converts the current package to a bytes object."""
-        package_format = self.format + f"{len(self.model)}s" + f"{len(self.brand)}s"
+        package_format = self.format + f"{len(self.model)}s" + f"{len(self.brand)}s" + f"{len(self.material)}s"
 
         return struct.pack(
             package_format,
@@ -119,8 +119,8 @@ class RobotDataPackage(Package):
                 header_size + model_size:
                 header_size + model_size + brand_size
             ])
-        
-        fillament = struct.unpack(
+
+        filament = struct.unpack(
             f"{material_size}s",
             data[
                 header_size + model_size + brand_size:
@@ -131,7 +131,7 @@ class RobotDataPackage(Package):
             timestamp=timestamp,
             model=name[0].decode("utf-8"),
             brand=manufacturer[0].decode("utf-8"),
-            material=fillament[0].decode("utf-8"),
+            material=filament[0].decode("utf-8"),
             axis=package[6],
             reach=package[7],
             payload=package[8],
