@@ -6,6 +6,7 @@ from .package import Package
 from .progress_package import ProgressPackage
 from .request_robot_list_package import RequestRobotListPackage
 from .robot_data_package import RobotDataPackage
+from .roll_package import RollPackage
 from .selected_robot_package import SelectedRobotPackage
 from .slicer_config_file_package import SlicerConfigFilePackage
 from .slicer_setting_package import SlicerSettingPackage
@@ -22,6 +23,7 @@ PACKAGES = {
     RequestRobotListPackage().identifier: RequestRobotListPackage,
     ConfirmationPackage().identifier: ConfirmationPackage,
     ButtonPackage().identifier: ButtonPackage,
+    RollPackage().identifier: RollPackage,
     ConsolePackage().identifier: ConsolePackage,
     SlicerConfigFilePackage().identifier: SlicerConfigFilePackage,
     SlicerSettingPackage().identifier: SlicerSettingPackage
