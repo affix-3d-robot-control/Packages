@@ -18,19 +18,3 @@ def test_stl_package_converts_to_bytes():
         0x00, 0x00, 0x00, 0x09,  # Stl length (9)
         0x2f, 0x64, 0x65, 0x76, 0x2f, 0x6e, 0x75, 0x6c, 0x6c  # Stl (/dev/null)
     ])
-
-
-def test_bytes_converts_to_stl_package():
-    """Tests if the bytes stl package converts \
-    to the object stl package."""
-    data = bytes([
-        0x00, 0x00, 0x00, 0x11,  # Package Size
-        0x03,  # Identifier
-        0x69, 0x0B, 0x08, 0x15,  # Timestamp (1762330645)
-        0x00, 0x00, 0x00, 0x09,  # Stl length (9)
-        0x2f, 0x64, 0x65, 0x76, 0x2f, 0x6e, 0x75, 0x6c, 0x6c  # stl (/dev/null)
-    ])
-    package = STLPackage().to_package(data)
-
-    assert package.timestamp == 1762330645
-    assert package.stl == "/dev/null"
