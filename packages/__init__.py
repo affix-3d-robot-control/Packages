@@ -25,7 +25,7 @@ PACKAGES = {
     ButtonPackage().identifier: ButtonPackage,
     RollPackage().identifier: RollPackage,
     ConsolePackage().identifier: ConsolePackage,
-    SlicerConfigFilePackage().identifier: SlicerConfigFilePackage
+    SlicerConfigFilePackage().identifier: SlicerConfigFilePackage,
     SlicerSettingPackage().identifier: SlicerSettingPackage
 }
 
