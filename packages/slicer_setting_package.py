@@ -14,7 +14,7 @@ class SlicerSettingPackage(Package):
             value: str = ""
     ):
         """Creates a slicer setting package.
-        
+
         :param action: The action to perform (e.g., 'get', 'set', 'default').
         :param key: The setting key.
         :param value: The setting value.
@@ -70,10 +70,10 @@ class SlicerSettingPackage(Package):
         current_pos = header_size
         action = data[current_pos:current_pos + action_len].decode("utf-8")
         current_pos += action_len
-        
+
         key = data[current_pos:current_pos + key_len].decode("utf-8")
         current_pos += key_len
-        
+
         value = data[current_pos:current_pos + value_len].decode("utf-8")
 
         return SlicerSettingPackage(
