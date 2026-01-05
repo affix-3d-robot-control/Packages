@@ -13,7 +13,6 @@ class Robot:
     payload: int = 0,
     weight: int = 0,
     accuracy: float = 0.0,
-    origin: list = (int, int, int)
 
     def connect(self):
         """Connects to the robot."""
