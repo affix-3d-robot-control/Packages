@@ -392,16 +392,10 @@ git checkout -b feature/new-package-type
 #### 4. Run Quality Checks
 ```bash
 # Code formatting
-poetry run black src/ tests/
-
-# Linting
-poetry run flake8 src/ tests/
-
-# Type checking
-poetry run mypy src/
+poetry run flake8
 
 # Run tests
-poetry run pytest tests/ -v
+poetry run pytest tests/your-test
 ```
 
 #### 5. Submit Pull Request
