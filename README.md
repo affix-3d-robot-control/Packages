@@ -9,11 +9,9 @@
 - [Package Architecture](#package-architecture)
 - [Installation](#installation)
 - [Usage Guide](#usage-guide)
-- [Available Packages](#available-packages)
 - [Creating Custom Packages](#creating-custom-packages)
 - [Serialization Protocol](#serialization-protocol)
 - [Development Guide](#development-guide)
-- [Troubleshooting](#troubleshooting)
 - [Contributing](#contributing)
 
 ## Overview
@@ -150,30 +148,6 @@ def receive_package(socket):
         return ButtonPackage().to_package(data)
     # ... handle other package types
 ```
-
-## Available Packages
-
-### System Control Packages
-| Package | Identifier | Description | Format |
-|---------|------------|-------------|--------|
-| **ButtonPackage** | 0x08 | Button press events | `!IBLI` |
-| **SlicerSettingPackage** | 0x10 | Slicer configuration | `!IB20s200s` |
-| **SystemStatusPackage** | 0x18 | System status updates | `!IBd100s` |
-| **EmergencyStopPackage** | 0x20 | Emergency stop command | `!IB` |
-
-### Motion Control Packages
-| Package | Identifier | Description | Format |
-|---------|------------|-------------|--------|
-| **MotionCommandPackage** | 0x30 | Robot motion commands | `!IB3d4dff` |
-| **RobotStatusPackage** | 0x38 | Robot position/status | `!IB6d6d` |
-| **CalibrationPackage** | 0x40 | Calibration data | `!IB3d3d` |
-
-### File Transfer Packages
-| Package | Identifier | Description | Format |
-|---------|------------|-------------|--------|
-| **FileTransferPackage** | 0x50 | File metadata | `!IB100sLQ` |
-| **FileChunkPackage** | 0x58 | File data chunks | `!IBL1024s` |
-| **FileCompletePackage** | 0x60 | Transfer completion | `!IB100s` |
 
 ### Detailed Package Example
 
@@ -344,7 +318,7 @@ cd packages
 
 #### 2. Install Development Dependencies
 ```bash
-poetry install --with dev
+poetry install
 
 # Install pre-commit hooks
 poetry run pre-commit install
@@ -353,7 +327,7 @@ poetry run pre-commit install
 #### 3. Run Tests
 ```bash
 # Package tests
-poetry run pytest tests/package.py
+poetry run pytest tests/your-test
 ```
 
 ### Adding New Packages
@@ -393,82 +367,6 @@ class NewPackage(Package):
             param1=package[2].decode("utf-8").strip('\x00'),
             param2=package[3]
         )
-```
-
-## Troubleshooting
-
-### Common Issues
-
-#### 1. "Invalid package identifier"
- Verify identifier is unique and in range (0x00-0xFF)
-
-
-#### 2. "Struct format error"
-```bash
-# Test format string
-python -c "import struct; print(struct.calcsize('!IB20s'))"
-
-# Check format string matches data types
-# Common issue: missing length field for variable strings
-```
-
-#### 3. "Package size mismatch"
-```python
-# Debug package serialization
-package = YourPackage()
-data = package.to_bytes()
-print(f"Calculated size: {struct.unpack('!I', data[0:4])[0]}")
-print(f"Actual size: {len(data)}")
-
-# Check that to_bytes() includes size as first element
-```
-
-#### 4. "Unicode decode error"
-```python
-# Ensure UTF-8 encoding/decoding
-text = "Some text"
-encoded = text.encode("utf-8")
-decoded = encoded.decode("utf-8")
-
-# For binary data, use appropriate encoding or store as bytes
-```
-
-### Debug Tools
-
-#### Network Sniffer
-```python
-# Example TCP packet logger
-import socket
-import struct
-from packages.src.package_factory import PackageFactory
-
-class PacketLogger:
-    def __init__(self, host='127.0.0.1', port=5555):
-        self.host = host
-        self.port = port
-    
-    def start(self):
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect((self.host, self.port))
-            while True:
-                try:
-                    # Read size
-                    size_bytes = s.recv(4)
-                    if not size_bytes:
-                        break
-                    
-                    size = struct.unpack("!I", size_bytes)[0]
-                    data = size_bytes + s.recv(size - 4)
-                    
-                    # Try to parse as package
-                    try:
-                        package = PackageFactory.create_package(data)
-                        print(f"Received: {package.__class__.__name__}")
-                    except Exception as e:
-                        print(f"Failed to parse: {e}")
-                        
-                except ConnectionError:
-                    break
 ```
 
 ## Contributing
@@ -572,12 +470,6 @@ Please include:
 3. Error message and stack trace
 4. Steps to reproduce
 5. Sample code if possible
-
-### Compatibility Matrix
-| Packages Version | Frontend Version | Backend Version | Translation Version |
-|-----------------|------------------|-----------------|---------------------|
-| 1.0.0           | 1.0.0+           | 1.0.0+          | 1.0.0+              |
-| 1.1.0           | 1.1.0+           | 1.1.0+          | 1.1.0+              |
 
 ---
 
